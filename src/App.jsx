@@ -13,10 +13,6 @@ const App = () => {
 
   const contractAddress = "0x85375cA51fCD0497bf7bb2eF2e99E28d4724A997"; 
 
-  // useEffect(() => {
-  //   connectWallet();
-  // }, []);
-
   const connectWallet = async () => {
     try {
       if (window.ethereum) {
