@@ -12,7 +12,7 @@ const App = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const contractAddress = "0x85375cA51fCD0497bf7bb2eF2e99E28d4724A997"; 
+  const contractAddress = "0xA7A642932D7D8bdf18b7cF9d27Fe612bFc84CFE3"; 
 
   const connectWallet = async () => {
     try {
