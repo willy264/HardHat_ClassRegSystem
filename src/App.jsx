@@ -14,7 +14,7 @@ const App = () => {
   const [adminName, setAdminName] = useState('');
 
 
-  const contractAddress = "0x85375cA51fCD0497bf7bb2eF2e99E28d4724A997"; 
+  const contractAddress = "0x73960c2c58162975B16b83b700160ca4E6216b7A"; 
 
   const connectWallet = async () => {
     try {
