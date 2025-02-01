@@ -72,7 +72,7 @@ const App = () => {
       setStudentName('');
     } catch (error) {
       console.error("Error registering student:", error);
-      alert("Error registering student!");
+      alert("You cannot register a student, You are not an admin");
     } finally {
       setLoading(false);
     }
