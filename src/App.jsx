@@ -11,8 +11,10 @@ const App = () => {
   const [studentName, setStudentName] = useState('');
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [adminName, setAdminName] = useState('');
 
-  const contractAddress = "0xA7A642932D7D8bdf18b7cF9d27Fe612bFc84CFE3"; 
+
+  const contractAddress = "0x85375cA51fCD0497bf7bb2eF2e99E28d4724A997"; 
 
   const connectWallet = async () => {
     try {
@@ -35,6 +37,18 @@ const App = () => {
       console.error("Error connecting wallet:", error);
     }
   };
+
+  const checkAdmin = async () => {
+    try {
+      const admin = await contract.admin();
+      if (admin === account) {
+        setAdminName('Admin');
+        console.log('Admin');
+      }
+    } catch (error) {
+      console.error("Error checking admin:", error);
+    }
+  }
 
   const fetchStudents = async () => {
     try {
@@ -91,7 +105,22 @@ const App = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }; 
+
+  const studentIds = async (id) => {
+    try {
+      setLoading(true);
+      const tx = await contract.studentId(id);
+      await tx.wait();
+      alert("Student ID successfully!");
+      fetchStudents();
+    } catch (error) {
+      console.error("Error fetching student ID:", error);
+      alert("Error fetching student ID!");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="container">
@@ -102,6 +131,8 @@ const App = () => {
         <p className="wallet-info">
           Connected Account: {account ? `${account.slice(0, 6)}...${account.slice(-4)}` : 'Not Connected'}
         </p>
+        <button onClick={checkAdmin} className='contain'>Check admin</button>
+        <p>{adminName}</p>
       </header>
 
       <main>

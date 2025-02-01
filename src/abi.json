@@ -16,6 +16,7 @@
   "stateMutability": "view",
   "type": "function"
 },
+
 {
   "inputs": [
     {
@@ -29,6 +30,7 @@
   "stateMutability": "nonpayable",
   "type": "function"
 },
+
 {
   "inputs": [
     {
@@ -48,6 +50,7 @@
   "stateMutability": "view",
   "type": "function"
 },
+
 {
   "inputs": [
     {
@@ -66,6 +69,7 @@
   "stateMutability": "nonpayable",
   "type": "function"
 },
+
 {
   "inputs": [],
   "name": "studentCount",
@@ -79,6 +83,7 @@
   "stateMutability": "view",
   "type": "function"
 },
+
 {
   "inputs": [
     {
@@ -98,6 +103,7 @@
   "stateMutability": "view",
   "type": "function"
 },
+
 {
   "inputs": [
     {
