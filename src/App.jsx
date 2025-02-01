@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ethers } from 'ethers';
 import abi from './abi.json';
 import './App.css';
@@ -6,6 +6,7 @@ import './App.css';
 const App = () => {
   const [contract, setContract] = useState(null);
   const [account, setAccount] = useState('');
+  const [validAccount, setValidAccount] = useState(false)
   const [studentId, setStudentId] = useState('');
   const [studentName, setStudentName] = useState('');
   const [students, setStudents] = useState([]);
@@ -25,6 +26,7 @@ const App = () => {
         
         setContract(contractInstance);
         setAccount(accounts[0]);
+        setValidAccount(true)
         fetchStudents();
       } else {
         alert("Please install MetaMask!");
@@ -93,7 +95,8 @@ const App = () => {
 
   return (
     <div className="container">
-      <button onClick={connectWallet} className='contain'>Connect Wallet</button>
+      {!validAccount ? <button onClick={connectWallet} className='contain'>Connect Wallet</button> : ''}
+      
       <header>
         <h1>Student Registration DApp</h1>
         <p className="wallet-info">
