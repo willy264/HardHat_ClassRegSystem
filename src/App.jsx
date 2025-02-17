@@ -38,18 +38,6 @@ const App = () => {
     }
   };
 
-  const checkAdmin = async () => {
-    try {
-      const admin = await contract.admin();
-      if (admin === account) {
-        setAdminName('Admin');
-        console.log('Admin');
-      }
-    } catch (error) {
-      console.error("Error checking admin:", error);
-    }
-  }
-
   const fetchStudents = async () => {
     try {
       setLoading(true);
@@ -74,19 +62,42 @@ const App = () => {
     }
   };
 
+  const checkAdmin = async () => {
+    try {
+      const admin = await contract.admin();
+      if (account == admin.toLowerCase()) {
+        setAdminName(admin);
+        console.log('Admin');
+        console.log('Admined:', admin);
+        console.log('Account:', account);
+      } else {
+        console.log('you are not the admin');
+        console.log('Admin:', admin);
+        console.log('Account:', account);
+      }
+    } catch (error) {
+      console.error("Error checking admin:", error);
+    }
+  }
+
   const registerStudent = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
-      const tx = await contract.registerStudent(studentId, studentName);
-      await tx.wait();
-      alert("Student registered successfully!");
-      fetchStudents();
-      setStudentId('');
-      setStudentName('');
+      const admin = await contract.admin();
+      if (account === admin.toLowerCase()) {
+        setLoading(true);
+        const tx = await contract.registerStudent(studentId, studentName);
+        await tx.wait();
+        alert("Student registered successfully!");
+        fetchStudents();
+        setStudentId('');
+        setStudentName('');        
+      } else {
+        console.log('You cannot register a student, You are not an admin');
+        alert("You cannot register a student, You are not an admin")
+      }
     } catch (error) {
       console.error("Error registering student:", error);
-      alert("You cannot register a student, You are not an admin");
     } finally {
       setLoading(false);
     }
@@ -94,11 +105,17 @@ const App = () => {
 
   const deleteStudent = async (id) => {
     try {
-      setLoading(true);
-      const tx = await contract.deleteStudent(id);
-      await tx.wait();
-      alert("Student deleted successfully!");
-      fetchStudents();
+      const admin = await contract.admin();
+      if (account === admin.toLowerCase()) {
+        setLoading(true);
+        const tx = await contract.deleteStudent(id);
+        await tx.wait();
+        alert("Student deleted successfully!");
+        fetchStudents();
+      } else {
+        console.log('You cannot register a student, You are not an admin');
+        alert("You cannot register a student, You are not an admin")
+      }
     } catch (error) {
       console.error("Error deleting student:", error);
       alert("Error deleting student!");
